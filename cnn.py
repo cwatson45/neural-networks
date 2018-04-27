@@ -307,7 +307,7 @@ output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 model = Model(inputs=sequence_embed, outputs=output)
 '''
 
-input_shape = (max_sentence_len, embed_size_word2vec,)
+input_shape = (max_sentence_len, embed_size_word2vec,1)
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
                  activation='relu',
