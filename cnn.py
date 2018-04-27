@@ -287,6 +287,8 @@ print(X_train.shape, X_test.shape)
 
 
 
+
+
 '''
 sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
 
@@ -306,6 +308,9 @@ output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 
 model = Model(inputs=sequence_embed, outputs=output)
 '''
+
+X_train = X_train.expand_dims(axis = 3)
+X_test = X_test.expand_dims(axis = 3)
 
 input_shape = (max_sentence_len, embed_size_word2vec,1)
 model = Sequential()
