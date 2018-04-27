@@ -126,7 +126,15 @@ class SoftAttentionConcat(ProbabilityTensor):
         print(K.concatenate([context, last_out]).shape)
         return K.concatenate([context, last_out]) 
 
+'''
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+from tensorflow.python.client import device_lib
 
+print(device_lib.list_local_devices())
+
+from keras import backend as K
+K.tensorflow_backend._get_available_gpus()
+'''
   
 import argparse
 parser = argparse.ArgumentParser()
@@ -144,8 +152,8 @@ embed_size_word2vec = 200
 context_window_word2vec = 20
 
 # 2. Classifier hyperparameters
-max_sentence_len = 44
-min_sentence_length = 7
+max_sentence_len = 47
+min_sentence_length = 3
 rankK = 10
 reg = .001
 #batch_size = 128
@@ -155,7 +163,7 @@ reg = .001
 # ========================================================================================
 all_data, all_owner, min_sentence_length, max_sentence_len = p.parse_metadata_bugs_analysts(
     'bugs-2018-02-09.csv')
-#max_sentence_len = 200
+max_sentence_len = 200
 SSS = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=0)
 
 import numpy_indexed as npi
@@ -285,17 +293,26 @@ sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
 
 forwards_1 = LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))(sequence_embed)
 attention_1 = SoftAttentionConcat()(forwards_1)
+#print( forwards_1)
+#print(attention_1)
 #after_dp_forward_5 = BatchNormalization()(attention_1)
-
 backwards_1 = LSTM(1024, return_sequences=True, recurrent_dropout=0.5, go_backwards=True, activity_regularizer = regularizers.l2(reg))(sequence_embed)
 attention_2 = SoftAttentionConcat()(backwards_1)
+
+print(backwards_1)
+#print(attention_2)
 #after_dp_backward_5 = BatchNormalization()(attention_2)
-
 merged = merge([attention_1, attention_2], mode='concat', concat_axis=-1)
+#concat = Concatenate(axis=-1)
+#merged = concatenate([attention_1, attention_2])#, axis=-1)
+print('attn1', attention_1)
+print('attn2', attention_2)
+print('merged', merged)
+#print(Dense(1000, input_dim=(4092,), activation='relu'))
 after_merge = Dense(1000, input_dim=(4092,), activation='relu', activity_regularizer = regularizers.l2(reg))(merged)
+print('after merged', after_merge)
 after_dp = Dropout(0.4)(after_merge)
-output = Dense(len(unique_train_label), activation='softmax')(after_dp)
-
+output = Dense(len(unique_train_label), activation='softmax')(after_dp)     
 model = Model(inputs=sequence_embed, outputs=output)
 
 #compile the model
@@ -310,7 +327,7 @@ print('model.input')
 #early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 
 #fit the model
-hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=100, validation_split = 0.2)              
+hist = model.fit(X_train, y_train, batch_size=128, epochs=100, validation_split = 0.2)              
 
 predict = model.predict(X_test)        
 accuracy = []

@@ -1,6 +1,5 @@
 #Aishwarya Sudhakar - Feb 6, 2018
 import csv
-import codecs
 import string
 from io import open
 #import nltk
@@ -12,7 +11,7 @@ import re
 from sklearn import preprocessing
 
 def rm_punc(str):
-	return re.sub("[^a-zA-Z0-9 ]", "", str)
+	return re.sub("[^a-zA-Z0-9 ]", " ", str)
 
 def cleantext(input_text):
 
@@ -27,16 +26,15 @@ def parse_metadata_bugs_analysts(csv_name):
 		print("Opening file: "+csv_name)
 		all_data = [];
 		all_owner = [];
-		#with codecs.open(csv_name, 'r', encoding="utf-8") as file:
 		with open(csv_name, 'rb') as file:
+			#decoded = file.read().decode("UTF-8")
 			reader = csv.DictReader(file)
 			for row in reader:
 				#Remove the bugzilla assignee - this is the assignment to system which is about 500/10000 bugs
 				label = row['Assignee']
 				summary = rm_punc(row['Summary']) 
 				if len(summary.split())>4:
-					summary = rm_punc(row['Product']) + ' ' + rm_punc(row['Component']) + ' ' + rm_punc(row['Keywords'] + summary)
-					print summary
+					summary = rm_punc(row['Product']) + ' ' + rm_punc(row['Component']) + ' ' + rm_punc(row['Keywords'] + ' ' + summary) 
 					lc_summary = summary.lower().split()
 					new_summary = ' '.join(lc_summary)
 					if label != "bugzilla":
@@ -59,7 +57,3 @@ def get_stats(all_data, all_owner):
 		max_len = max(max_len, len(one_data.split()))
 
 	return min_len, max_len
-
-all_data, all_owner, min_sentence_length, max_sentence_len = parse_metadata_bugs_analysts('bugs-2018-02-09.csv')
-
-print(type(all_data))
