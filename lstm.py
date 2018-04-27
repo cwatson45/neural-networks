@@ -133,8 +133,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--num_epochs', required=False, type=int, default=10)
 parser.add_argument('--batch_size', required=False, type=int, default=128)
 parser.add_argument('--numCV', required=False, type=int, default=1)
-parser.add_argument('--reg', required=False, type=float, default=.01)
-parser.add_argument('--lr', required=False, type=float, default=1e-5)
+parser.add_argument('--reg', required=False, type=float, default=.001)
+parser.add_argument('--lr', required=False, type=float, default=1e-3)
 args = parser.parse_args()
 batch_size = args.batch_size
 num_epochs = args.num_epochs
@@ -148,7 +148,7 @@ embed_size_word2vec = 200
 context_window_word2vec = 20
 
 # 2. Classifier hyperparameters
-max_sentence_len = 44
+max_sentence_len = 280
 min_sentence_length = 7
 rankK = 10
 #reg = .001
@@ -159,7 +159,6 @@ rankK = 10
 # ========================================================================================
 all_data, all_owner, min_sentence_length, max_sentence_len = p.parse_metadata_bugs_analysts(
     'bugs-2018-02-09.csv')
-#max_sentence_len = 200
 SSS = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=0)
 
 import numpy_indexed as npi
