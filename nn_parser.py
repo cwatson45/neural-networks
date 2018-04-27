@@ -36,7 +36,6 @@ def parse_metadata_bugs_analysts(csv_name):
 				summary = rm_punc(row['Summary']) 
 				if len(summary.split())>4:
 					summary = rm_punc(row['Product']) + ' ' + rm_punc(row['Component']) + ' ' + rm_punc(row['Keywords'] + summary)
-					print summary
 					lc_summary = summary.lower().split()
 					new_summary = ' '.join(lc_summary)
 					if label != "bugzilla":
