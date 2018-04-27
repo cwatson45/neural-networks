@@ -284,7 +284,9 @@ print(X_train.shape, X_test.shape)
 
 
 
+'''
 sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
+
 
 forwards_1 = LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))(sequence_embed)
 attention_1 = SoftAttentionConcat()(forwards_1)
@@ -300,6 +302,20 @@ after_dp = Dropout(0.4)(after_merge)
 output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 
 model = Model(inputs=sequence_embed, outputs=output)
+'''
+
+input_shape = (max_sentence_len, embed_size_word2vec,)
+model = Sequential()
+model.add(Conv2D(32, kernel_size=(5, 5), strides=(1, 1),
+                 activation='relu',
+                 input_shape=input_shape))
+model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+model.add(Conv2D(64, (5, 5), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(1000, activation='relu'))
+model.add(Dense(len(unique_train_label), activation='softmax'))
+
 
 #compile the model
 model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=lr), metrics=['accuracy'])
