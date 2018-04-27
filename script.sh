@@ -7,8 +7,8 @@
 #SBATCH --error=errors.txt
 #SBATCH --gres=gpu:1
 
-export PATH=~/venv_2.7.12/bin:$PATH
+export PATH=~/venv_2.7/bin:$PATH
 module load python/2.7.12
 module load cuda80
-source ~/venv_2.7.12/bin/activate
-python lstm.py 
+source ~/venv_2.7/bin/activate
+python lstm.py
