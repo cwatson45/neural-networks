@@ -133,10 +133,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--num_epochs', required=False, type=int, default=10)
 parser.add_argument('--batch_size', required=False, type=int, default=128)
 parser.add_argument('--numCV', required=False, type=int, default=1)
+parser.add_argument('--reg', required=False, type=float, default=.01)
+parser.add_argument('--lr', required=False, type=float, default=1e-5)
 args = parser.parse_args()
 batch_size = args.batch_size
 num_epochs = args.num_epochs
 numCV = args.numCV
+reg = args.reg
+lr = args.lr
 
 # 1. Word2vec parameters
 min_word_frequency_word2vec = 5
@@ -147,7 +151,7 @@ context_window_word2vec = 20
 max_sentence_len = 44
 min_sentence_length = 7
 rankK = 10
-reg = .001
+#reg = .001
 #batch_size = 128
 
 # ========================================================================================
@@ -299,7 +303,7 @@ output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 model = Model(inputs=sequence_embed, outputs=output)
 
 #compile the model
-model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=1e-3), metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=lr), metrics=['accuracy'])
 print("\n\nmodel\n\n")
 print(model.summary())
 print('\n\n')
@@ -309,6 +313,9 @@ print(model.layers)
 print('model.input')
 #early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 
+print("Training the Model")
+print('reg =', reg)
+print('lr = ', lr)
 #fit the model
 hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=100, validation_split = 0.2)              
 
