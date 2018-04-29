@@ -46,8 +46,8 @@ def parse_metadata_bugs_analysts(csv_name):
 		print("Min length of sentence", min_len)
 		print("Max length of sentence", max_len)
 
-		print 'shape all data', np.array(all_data).shape()
-		print 'all data[1,1] ', all_data[1,1] 
+		#print 'shape all data', np.array(all_data).shape()
+		#print 'all data[1,1] ', all_data[1,1] 
 		return np.array(all_data), np.array(all_owner), min_len, max_len
 
 
