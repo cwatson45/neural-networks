@@ -281,9 +281,18 @@ for train_index, test_index in SSS.split(all_data, all_owner):
 print('i=', i)
 print(X_train.shape, X_test.shape)
 
+input_shape = X_train.shape[1:] #max sentence length
+model = Sequential()
+model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.2, activity_regularizer = regularizers.l2(reg), input_shape =input_shape), input_shape =input_shape))
+model.add(BatchNormalization())
+model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.2, activity_regularizer = regularizers.l2(reg))))
+model.add(BatchNormalization())
+model.add(Dense(1024, activation='relu', activity_regularizer = regularizers.l2(reg)))
+model.add(Dropout(rate = .5))
+model.add(Flatten())
+model.add(Dense(len(unique_train_label), activation='softmax'))
 
-
-
+'''
 sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
 
 forwards_1 = LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))(sequence_embed)
@@ -300,6 +309,7 @@ after_dp = Dropout(0.4)(after_merge)
 output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 
 model = Model(inputs=sequence_embed, outputs=output)
+'''
 
 #compile the model
 model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=lr), metrics=['accuracy'])
