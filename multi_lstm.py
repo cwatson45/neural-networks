@@ -18,6 +18,7 @@ from gensim.models import Word2Vec
 from keras.preprocessing import sequence
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, InputSpec, TimeDistributed, BatchNormalization, Bidirectional, Wrapper, Concatenate, concatenate
+from keras.layers import Flatten
 from keras.optimizers import RMSprop, Adam
 from keras.utils import np_utils
 from keras import regularizers
