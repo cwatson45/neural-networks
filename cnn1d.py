@@ -180,10 +180,8 @@ wordvec_model = Word2Vec(
     window=context_window_word2vec)
 vocabulary = wordvec_model.wv.vocab
 vocab_size = len(vocabulary)
-print(vocabulary)
-print(vocab_size)
-totalLength = len(all_data)
-splitLength = int(totalLength * 0.8)
+#print(vocabulary)
+print('vocab size = ', vocab_size)
 
 
 
@@ -292,7 +290,7 @@ print(X_train.shape, X_test.shape)
 X_train = np.expand_dims(X_train, axis = 3)
 X_test = np.expand_dims(X_test, axis = 3)
 
-'''
+
 input_shape = (max_sentence_len, embed_size_word2vec,1) #max sentence length
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(5, embed_size_word2vec), strides=1,
@@ -357,4 +355,3 @@ print('Test accuracy:', accuracy)
 train_result = hist.history
 print(train_result)
 del model
-'''
