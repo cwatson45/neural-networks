@@ -133,7 +133,7 @@ class SoftAttentionConcat(ProbabilityTensor):
   
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--num_epochs', required=False, type=int, default=10)
+parser.add_argument('--num_epochs', required=False, type=int, default=100)
 parser.add_argument('--batch_size', required=False, type=int, default=128)
 parser.add_argument('--numCV', required=False, type=int, default=1)
 parser.add_argument('--reg', required=False, type=float, default=.001)
@@ -312,19 +312,19 @@ model = Model(inputs=sequence_embed, outputs=output)
 X_train = np.expand_dims(X_train, axis = 3)
 X_test = np.expand_dims(X_test, axis = 3)
 
-input_shape = (max_sentence_len, embed_size_word2vec,1)
+input_shape = (None, embed_size_word2vec,1) #max sentence length
 model = Sequential()
-model.add(Conv2D(32, kernel_size=(5, 5), strides=1,
+model.add(Conv1D(32, kernel_size=5, strides=1,
                  activation='relu',
                  input_shape=input_shape))
 model.add(Dropout(rate = .5))
-model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-model.add(Conv2D(64, (5, 5), activation='relu'))
+model.add(MaxPooling1D(pool_size=2, strides=2))
+model.add(Conv1D(64, 5, activation='relu'))
 model.add(Dropout(rate = .5))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Conv2D(64, (5, 5), activation='relu'))
+model.add(MaxPooling1D(pool_size=2))
+model.add(Conv1D(64, 5, activation='relu'))
 model.add(Dropout(rate = .5))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling1D(pool_size=(2, 2)))
 model.add(Flatten())
 model.add(Dense(1000, activation='relu'))
 model.add(Dense(len(unique_train_label), activation='softmax'))
@@ -345,7 +345,7 @@ print("Training the Model")
 print('reg =', reg)
 print('lr = ', lr)
 #fit the model
-hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=100, validation_split = 0.2)              
+hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=num_epochs, validation_split = 0.2)              
 
 predict = model.predict(X_test)        
 accuracy = []
