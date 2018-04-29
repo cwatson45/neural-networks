@@ -19,7 +19,7 @@ from keras.preprocessing import sequence
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, InputSpec
 from keras.layers import TimeDistributed, BatchNormalization, Bidirectional, Wrapper, Concatenate, concatenate
-from keras.layers import Conv2D, MaxPooling2D, Flatten
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Conv1D, MaxPooling1D
 
 from keras.optimizers import RMSprop, Adam
 from keras.utils import np_utils
