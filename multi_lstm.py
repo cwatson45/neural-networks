@@ -18,7 +18,7 @@ from gensim.models import Word2Vec
 from keras.preprocessing import sequence
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, InputSpec, TimeDistributed, BatchNormalization, Bidirectional, Wrapper, Concatenate, concatenate
-from keras.layers import Flatten
+from keras.layers import Flatten, Bidirectional
 from keras.optimizers import RMSprop, Adam
 from keras.utils import np_utils
 from keras import regularizers
@@ -289,11 +289,11 @@ print(X_train.shape, X_test.shape)
 
 input_shape = X_train.shape[1:] #max sentence length
 model = Sequential()
-model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape =input_shape))
-model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
-model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
-model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
-model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
+model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape =input_shape)))
+model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
+#model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
+#model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
+#model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
 model.add(Dense(1024, activation='relu', activity_regularizer = regularizers.l2(reg)))
 model.add(Dropout(rate = .5))
 model.add(Flatten())
