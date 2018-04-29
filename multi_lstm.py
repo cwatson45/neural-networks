@@ -286,7 +286,7 @@ print(X_train.shape, X_test.shape)
 #X_test = np.expand_dims(X_test, axis = 3)
 
 
-input_shape = (max_sentence_len, embed_size_word2vec,) #max sentence length
+input_shape = (None, max_sentence_len, embed_size_word2vec) #max sentence length
 model = Sequential()
 model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape =input_shape))
 model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
