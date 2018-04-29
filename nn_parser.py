@@ -56,11 +56,11 @@ def get_stats(all_data, all_owner):
 
 	min_len = 100
 	for one_data in all_data:
-		min_len = min(min_len, len(one_data).split())
+		min_len = min(min_len, len(one_data.split()))
 
 	max_len = 0
 	for one_data in all_data:
-		max_len = max(max_len, len(one_data).split())
+		max_len = max(max_len, len(one_data.split()))
 
 	return min_len, max_len
 
