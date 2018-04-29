@@ -293,8 +293,8 @@ model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regu
 model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
 model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
 model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg)))
-model.add(Dense(1024, activation='relu', activity_regularizer = regularizers.l2(reg), input_shape= (1024,)))
-model.add(Dropout(rate = .5))
+#model.add(Dense(1024, activation='relu', activity_regularizer = regularizers.l2(reg), input_shape= (1024,)))
+#model.add(Dropout(rate = .5))
 model.add(Dense(len(unique_train_label), activation='softmax'))
 '''
 sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
