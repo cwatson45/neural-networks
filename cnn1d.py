@@ -165,7 +165,7 @@ all_data, all_owner, min_sentence_length, max_sentence_len = p.parse_metadata_bu
 SSS = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=0)
 
 print type(all_data)
-print all_data.shape()
+print all_data
 
 import numpy_indexed as npi
 samples_mask = npi.multiplicity(all_owner) >= 10
