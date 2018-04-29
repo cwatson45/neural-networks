@@ -282,8 +282,21 @@ print('i=', i)
 print(X_train.shape, X_test.shape)
 
 
+X_train = np.expand_dims(X_train, axis = 3)
+X_test = np.expand_dims(X_test, axis = 3)
 
 
+input_shape = (max_sentence_len, embed_size_word2vec,1) #max sentence length
+model = Sequential()
+model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape = shape = (max_sentence_len, embed_size_word2vec,)))
+model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape = shape = (1024,)))
+model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape = shape = (1024,)))
+model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape = shape = (1024,)))
+model.add(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape = shape = (1024,)))
+model.add(Dense(1024, input_dim=(1024,), activation='relu', activity_regularizer = regularizers.l2(reg)))
+model.add(Dropout(rate = .5))
+model.add(Dense(len(unique_train_label), activation='softmax'))
+'''
 sequence_embed = Input(shape = (max_sentence_len, embed_size_word2vec,))
 
 forwards_1 = LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))(sequence_embed)
@@ -306,7 +319,7 @@ after_dp = Dropout(0.4)(after_merge)
 output = Dense(len(unique_train_label), activation='softmax')(after_dp)
 
 model = Model(inputs=sequence_embed, outputs=output)
-
+'''
 #compile the model
 model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=lr), metrics=['accuracy'])
 print("\n\nmodel\n\n")
