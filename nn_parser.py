@@ -39,7 +39,7 @@ def parse_metadata_bugs_analysts(csv_name):
 					lc_summary = summary.lower().split()
 					new_summary = ' '.join(lc_summary)
 					if label != "bugzilla":
-						all_data.append(new_summary.split())
+						all_data.append(new_summary)
 						all_owner.append(label)
 
 		min_len, max_len = get_stats(all_data, all_owner)
@@ -51,11 +51,11 @@ def get_stats(all_data, all_owner):
 
 	min_len = 100
 	for one_data in all_data:
-		min_len = min(min_len, len(one_data.split()))
+		min_len = min(min_len, len(one_data)
 
 	max_len = 0
 	for one_data in all_data:
-		max_len = max(max_len, len(one_data.split()))
+		max_len = max(max_len, len(one_data)
 
 	return min_len, max_len
 
