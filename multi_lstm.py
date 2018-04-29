@@ -290,7 +290,7 @@ print(X_train.shape, X_test.shape)
 input_shape = X_train.shape[1:] #max sentence length
 model = Sequential()
 model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg), input_shape =input_shape), input_shape =input_shape))
-model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
+model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
 #model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
 #model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
 #model.add(Bidiecctional(LSTM(1024, return_sequences=True, recurrent_dropout=0.5, activity_regularizer = regularizers.l2(reg))))
