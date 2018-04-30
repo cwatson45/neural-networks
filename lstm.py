@@ -360,5 +360,10 @@ train_result = hist.history
 print(train_result)
 '''
 
-print predict
+from sklearn.metrics import classification_report
+#import numpy as np
+
+#Y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
+y_pred = model.predict_classes(X_test)
+print(classification_report(y_test, y_pred))
 del model
