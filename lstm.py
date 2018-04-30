@@ -334,7 +334,7 @@ accuracy = []
 sortedIndices = []
 pred_classes = []
 
-'''
+
 for ll in predict:
     sortedIndices.append(
         sorted(
@@ -358,7 +358,7 @@ print('Test accuracy:', accuracy)
 
 train_result = hist.history
 print(train_result)
-'''
+
 
 from sklearn.metrics import classification_report
 #import numpy as np
