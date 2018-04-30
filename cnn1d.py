@@ -295,7 +295,7 @@ input_shape = (max_sentence_len, embed_size_word2vec,1) #max sentence length
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(5, embed_size_word2vec), strides=1,
                  activation='relu',
-                 input_shape=input_shape))
+                 input_shape=input_shape, activity_regularizer = regularizers.l2(reg)))
 model.add(Dropout(rate = .5))
 #model.add(MaxPooling1D(pool_size=2, strides=2))
 
@@ -308,7 +308,7 @@ model.add(Dropout(rate = .5))
 #model.add(MaxPooling1D(pool_size=2))
 
 model.add(Flatten())
-model.add(Dense(1000, activation='relu'))
+model.add(Dense(1000, activation='relu', activity_regularizer = regularizers.l2(reg)))
 model.add(Dense(len(unique_train_label), activation='softmax'))
 
 
