@@ -168,7 +168,7 @@ print type(all_data)
 print all_data
 
 import numpy_indexed as npi
-samples_mask = npi.multiplicity(all_owner) >= 10
+samples_mask = npi.multiplicity(all_owner) >= 50
 all_data = all_data[samples_mask]
 all_owner = all_owner[samples_mask]
 
@@ -354,4 +354,16 @@ print('Test accuracy:', accuracy)
 
 train_result = hist.history
 print(train_result)
+
+from sklearn.metrics import classification_report
+#import numpy as np
+
+Y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
+y_pred = model.predict_classes(X_test)
+print(classification_report(Y_test, y_pred, target_names = classes))
+for i in range(len(classes)):
+    print(i, ' ', classes[i])
+del model
+
+
 del model
