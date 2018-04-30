@@ -362,8 +362,7 @@ Y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
 y_pred = model.predict_classes(X_test)
 print(classification_report(Y_test, y_pred, target_names = classes))
 for i in range(len(classes)):
-    print(i, ' ', classes[i])
-del model
+    print i, classes[i]
 
 
 del model
