@@ -20,7 +20,7 @@ from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, InputSpec
 from keras.layers import TimeDistributed, BatchNormalization, Bidirectional, Wrapper, Concatenate, concatenate
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Conv1D, MaxPooling1D
-
+from keras import regularizers
 from keras.optimizers import RMSprop, Adam
 from keras.utils import np_utils
 from keras import regularizers
@@ -298,7 +298,7 @@ model.add(Conv2D(32, kernel_size=(5, embed_size_word2vec), strides=1,
                  input_shape=input_shape))
 model.add(Dropout(rate = .5))
 #model.add(MaxPooling1D(pool_size=2, strides=2))
-model.add(Conv2D(64, (5,1), activation='relu'),activity_regularizer = regularizers.l2(reg))
+model.add(Conv2D(64, (5,1), activation='relu',activity_regularizer = regularizers.l2(reg)))
 model.add(Dropout(rate = .5))
 #model.add(MaxPooling1D(pool_size=2))
 model.add(Conv2D(64, (5,1), activation='relu',activity_regularizer = regularizers.l2(reg)))
