@@ -293,7 +293,7 @@ X_test = np.expand_dims(X_test, axis = 3)
 
 input_shape = (max_sentence_len, embed_size_word2vec,1) #max sentence length
 model = Sequential()
-model.add(Conv2D(32, kernel_size=(5, embed_size_word2vec), strides=1,
+model.add(Conv2D(64, kernel_size=(5, embed_size_word2vec), strides=1,
                  activation='relu',
                  input_shape=input_shape, activity_regularizer = regularizers.l2(reg)))
 model.add(Dropout(rate = .5))
