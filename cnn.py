@@ -340,7 +340,7 @@ print("Training the Model")
 print('reg =', reg)
 print('lr = ', lr)
 #fit the model
-hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=100, validation_split = 0.2)              
+hist = model.fit(X_train, y_train, batch_size=batch_size, epochs=num_epochs, validation_split = 0.2)              
 
 predict = model.predict(X_test)        
 accuracy = []
