@@ -175,8 +175,8 @@ wordvec_model = Word2Vec(
     window=context_window_word2vec)
 vocabulary = wordvec_model.wv.vocab
 vocab_size = len(vocabulary)
-print(vocabulary)
-print(vocab_size)
+#print(vocabulary)
+#print(vocab_size)
 totalLength = len(all_data)
 splitLength = int(totalLength * 0.8)
 
@@ -285,9 +285,9 @@ print(X_train.shape, X_test.shape)
 input_shape = X_train.shape[1:] #max sentence length
 model = Sequential()
 model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.2, activity_regularizer = regularizers.l2(reg), input_shape =input_shape), input_shape =input_shape))
-model.add(BatchNormalization())
-model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.2, activity_regularizer = regularizers.l2(reg))))
-model.add(BatchNormalization())
+#model.add(BatchNormalization())
+#model.add(Bidirectional(LSTM(1024, return_sequences=True, recurrent_dropout=0.2, activity_regularizer = regularizers.l2(reg))))
+#model.add(BatchNormalization())
 model.add(Dense(1024, activation='relu', activity_regularizer = regularizers.l2(reg)))
 model.add(Dropout(rate = .5))
 model.add(Flatten())
