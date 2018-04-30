@@ -363,7 +363,7 @@ print(train_result)
 from sklearn.metrics import classification_report
 #import numpy as np
 
-#Y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
+Y_test = np.argmax(y_test, axis=1) # Convert one-hot to index
 y_pred = model.predict_classes(X_test)
-print(classification_report(y_test, y_pred))
+print(classification_report(Y_test, y_pred))
 del model
