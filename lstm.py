@@ -146,7 +146,7 @@ lr = args.lr
 # 1. Word2vec parameters
 min_word_frequency_word2vec = 5
 embed_size_word2vec = 200
-context_window_word2vec = 20
+context_window_word2vec = 5
 
 # 2. Classifier hyperparameters
 max_sentence_len = 280
@@ -334,6 +334,7 @@ accuracy = []
 sortedIndices = []
 pred_classes = []
 
+'''
 for ll in predict:
     sortedIndices.append(
         sorted(
@@ -357,4 +358,7 @@ print('Test accuracy:', accuracy)
 
 train_result = hist.history
 print(train_result)
+'''
+
+print predict
 del model
