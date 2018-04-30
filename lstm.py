@@ -163,7 +163,7 @@ all_data, all_owner, min_sentence_length, max_sentence_len = p.parse_metadata_bu
 SSS = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=0)
 
 import numpy_indexed as npi
-samples_mask = npi.multiplicity(all_owner) >= 5
+samples_mask = npi.multiplicity(all_owner) >= 50
 all_data = all_data[samples_mask]
 all_owner = all_owner[samples_mask]
 
